@@ -11,11 +11,35 @@
 
 ```
 npm install
-npm run dev       # dev-сервер с горячей перезагрузкой
-npm run build     # прод-сборка в dist/ (статика, для GitHub Pages)
+npm run dev       # dev-сервер с горячей перезагрузкой (на / )
+npm run build     # прод-сборка в dist/, base = /spamton_g_spamton/
 npm run preview   # локальный просмотр прод-сборки
 npm run typecheck # только проверка типов, без сборки
 ```
+
+## Деплой на GitHub Pages
+
+Каждый пуш в `main` собирает проект и публикует `dist/` через
+`.github/workflows/deploy.yml` (npm ci → npm run build →
+`actions/upload-pages-artifact` → `actions/deploy-pages`).
+
+**Разово перед первым деплоем:** в настройках репозитория —
+Settings → Pages → Source → **GitHub Actions** (иначе workflow
+отработает, но публиковать будет некуда).
+
+`vite.config.ts` подставляет `base` в зависимости от команды:
+`/spamton_g_spamton/` при `npm run build` (под GitHub Pages
+project-страницу `https://<user>.github.io/spamton_g_spamton/`),
+`/` при `npm run dev` — чтобы локальная разработка оставалась на
+привычном `http://localhost:5173/`. Если репозиторий переименуют —
+поменять `REPO_NAME` в начале `vite.config.ts`.
+
+Все обращения к `public/assets/...` и `public/data/dialogue.json` в
+коде — относительные пути без ведущего `/`, поэтому резолвятся от
+адреса страницы и работают под любым `base`; это проверено сборкой,
+локально поднятой ровно под путём `/spamton_g_spamton/` (эмуляция
+структуры GitHub Pages) — JS/CSS, `dialogue.json` и плейсхолдер для
+отсутствующего спрайта разрешились корректно, без ошибок в консоли.
 
 ## Управление
 
