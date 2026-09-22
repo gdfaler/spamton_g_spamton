@@ -1,42 +1,69 @@
-# SPAMTON NEO — Boss Battle Clone
+# SPAMTON NEO — Battle Clone
 
-A fan-made, fully playable clone of the SPAMTON NEO boss battle from
-*Deltarune Chapter 2*, built as a self-contained static web page (plain
-HTML/CSS/JS, no build step, no external dependencies).
+Клон боя со Spamton NEO (*Deltarune*, Chapter 2). Дизайн — см.
+`SPEC.md`, список ассетов — `ASSETS.md`. Разработка идёт поэтапно,
+по стадиям (см. историю правок SPEC.md); каждая стадия — отдельный
+коммит.
 
-## Play
+**Стек:** Vite + TypeScript + HTML5 Canvas, без игровых движков.
 
-Open `index.html` in a browser (or serve the folder with any static file
-server, e.g. `python3 -m http.server`).
+## Запуск
 
-- **Arrow keys / WASD** — move the soul
-- **Z / Enter / Space** — confirm, attack, advance dialogue
-- **X / Escape** — cancel / back out of a submenu
-- **F** — toggle the FPS counter
-- The intro dialogue can be skipped at any time with the **SKIP INTRO**
-  button in the top-right corner, or `Escape`.
-- Mouse/touch works for every menu and the FIGHT timing bar; touch also
-  supports drag-to-move during the bullet-hell phases.
+```
+npm install
+npm run dev       # dev-сервер с горячей перезагрузкой
+npm run build     # прод-сборка в dist/ (статика, для GitHub Pages)
+npm run preview   # локальный просмотр прод-сборки
+npm run typecheck # только проверка типов, без сборки
+```
 
-## How it works
+## Управление (текущее, Этап 2)
 
-- `js/utils.js` — small math/collision helpers
-- `js/audio.js` — a tiny WebAudio synth (no audio files; all sound and
-  the battle theme are generated procedurally at runtime)
-- `js/dialogue.js` — the typewriter dialogue box + skip logic
-- `js/heart.js` — the player-controlled SOUL
-- `js/patterns.js` — bullet types and the four attack patterns
-- `js/boss.js` — boss HP/phase/spare-state logic
-- `js/ui.js` — all canvas drawing helpers, including the boss's
-  procedurally-drawn puppet design
-- `js/main.js` — the state machine and a fixed-timestep (60Hz) game loop
+- **Стрелки / WASD** — навигация в меню
+- **Z / Enter** — подтвердить
+- **X** — отмена (в стадии 2 также debug-шорткаты, см. ниже)
+- **C** — меню / удержание — пропуск интро (сама логика пропуска
+  появится в Этапе 3)
+- **Shift** — зарезервирована, намеренно ничего не делает
 
-The boss art is an original geometric design (not an extracted game
-sprite), and all dialogue is original fan-written flavor text in the
-character's stylistic voice rather than a copy of the game's script —
-this keeps the project a transformative fan tribute rather than a
-reproduction of copyrighted assets.
+## Текущее состояние (Этап 2 — каркас)
 
-Game loop: `requestAnimationFrame` drives rendering, while game logic
-(movement, bullets, collisions) runs on a fixed 60Hz accumulator step so
-behavior is consistent across displays regardless of refresh rate.
+Реализована только архитектура, без реального геймплея:
+- Canvas 640×480, целочисленное масштабирование под окно,
+  `image-rendering: pixelated`.
+- Игровой цикл: логика на фиксированном шаге 60 Гц (аккумулятор),
+  отрисовка — через `requestAnimationFrame`, независимо от герцовки
+  монитора.
+- Менеджер ввода с `isDown/justPressed/justReleased/heldSeconds`.
+- Загрузчик ассетов: при отсутствии файла рисует подписанную
+  цветную заглушку вместо падения (см. `src/core/assets.ts`).
+- Машина состояний повторяет схему из `SPEC.md` §1
+  (`Boot → StartMenu → Intro → PartyMenu → ResolveNonFight →
+  ResolveFight → EnemyAttack → ... → Victory/GameOver`), но все
+  состояния, кроме `StartMenu`, — заглушки-«пустышки»: показывают
+  своё имя и переходят дальше по Z/Enter.
+- В `EnemyAttack` уже честно работает интерфейс атаки
+  (`init/update/draw/isFinished`) через `StubAttack` и выбор атаки по
+  номеру хода (`src/attacks/sequence.ts`) — это заготовка под Этап 6.
+
+**Debug-шорткаты этого этапа (уберутся, когда появится настоящая
+логика):** `X` в `PartyMenu` → сразу экран Victory; `X` в
+`EnemyAttack` → сразу экран GameOver.
+
+Реального геймплея (диалоги, боевое меню, жёлтая душа, атаки) в
+этом этапе нет — см. `SPEC.md` за постраничным планом следующих
+этапов.
+
+## Структура
+
+```
+src/
+  core/        цикл, canvas, ввод, загрузчик ассетов, машина состояний
+  game/        Game.ts (сборка всего), контекст, состояния боя
+  attacks/     интерфейс Attack + порядок атак по ходам (sequence.ts)
+  config/      все числовые настройки (party.ts, magic.ts, attacks.ts)
+public/
+  assets/sprites/  спрайты (кладёте сами — см. ASSETS.md)
+  assets/audio/    звук/музыка (кладёте сами — см. ASSETS.md)
+  data/dialogue.json  реплики (шаблон с пустыми строками)
+```
