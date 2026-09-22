@@ -1,0 +1,84 @@
+{
+  "_readme": "Шаблон реплик. Все строки-значения пустые — заполнить самостоятельно (см. SPEC.md, раздел «Диалоги и копирайт») либо попросить меня написать трансформативный текст. Массивы = последовательные страницы одной сцены (Z листает по порядку). {speaker} — ключ на портрет из ASSETS.md (kris/susie/ralsei/spamton/system).",
+
+  "intro": {
+    "phone_call": [
+      { "speaker": "spamton", "text": "" },
+      { "speaker": "system", "text": "" },
+      { "speaker": "spamton", "text": "" },
+      { "speaker": "system", "text": "" }
+    ],
+    "neo_declaration": [
+      { "speaker": "spamton", "text": "" },
+      { "speaker": "spamton", "text": "" },
+      { "speaker": "spamton", "text": "" }
+    ]
+  },
+
+  "battle": {
+    "check_neo": "",
+    "act_snap": [
+      { "speaker": "system", "text": "" },
+      { "speaker": "spamton", "text": "" }
+    ],
+    "act_s_action": [
+      { "speaker": "susie", "text": "" },
+      { "speaker": "spamton", "text": "" }
+    ],
+    "act_r_action": [
+      { "speaker": "ralsei", "text": "" },
+      { "speaker": "spamton", "text": "" }
+    ],
+    "snap_all": [
+      { "speaker": "system", "text": "" },
+      { "speaker": "spamton", "text": "" }
+    ],
+    "taunts": [
+      { "speaker": "spamton", "text": "" },
+      { "speaker": "spamton", "text": "" },
+      { "speaker": "spamton", "text": "" },
+      { "speaker": "spamton", "text": "" }
+    ],
+    "hurt_lines": [
+      { "speaker": "spamton", "text": "" },
+      { "speaker": "spamton", "text": "" },
+      { "speaker": "spamton", "text": "" }
+    ],
+    "low_hp_lines": [
+      { "speaker": "spamton", "text": "" },
+      { "speaker": "spamton", "text": "" }
+    ],
+    "free_turn_call": [
+      { "speaker": "spamton", "text": "" },
+      { "speaker": "spamton", "text": "" }
+    ]
+  },
+
+  "wires": {
+    "almost_done": [
+      { "speaker": "spamton", "text": "" },
+      { "speaker": "spamton", "text": "" }
+    ],
+    "all_cut_ending": [
+      { "speaker": "spamton", "text": "" },
+      { "speaker": "spamton", "text": "" },
+      { "speaker": "spamton", "text": "" },
+      { "speaker": "system", "text": "" }
+    ]
+  },
+
+  "endings": {
+    "victory_fight": [
+      { "speaker": "spamton", "text": "" },
+      { "speaker": "system", "text": "" }
+    ],
+    "victory_wires": [
+      { "speaker": "spamton", "text": "" },
+      { "speaker": "system", "text": "" }
+    ],
+    "game_over": [
+      { "speaker": "spamton", "text": "" },
+      { "speaker": "system", "text": "" }
+    ]
+  }
+}
