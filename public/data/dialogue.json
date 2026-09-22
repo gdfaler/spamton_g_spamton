@@ -1,84 +1,84 @@
 {
-  "_readme": "Шаблон реплик. Все строки-значения пустые — заполнить самостоятельно (см. SPEC.md, раздел «Диалоги и копирайт») либо попросить меня написать трансформативный текст. Массивы = последовательные страницы одной сцены (Z листает по порядку). {speaker} — ключ на портрет из ASSETS.md (kris/susie/ralsei/spamton/system).",
+  "_readme": "Текст ниже — оригинальный, написан «в стиле персонажа» (не дословный перевод игры), см. SPEC.md → «Диалоги и копирайт». Замените на свой в любой момент, структура ключей менять не обязательно. {speaker}: kris | susie | ralsei | spamton | system.",
 
   "intro": {
     "phone_call": [
-      { "speaker": "spamton", "text": "" },
-      { "speaker": "system", "text": "" },
-      { "speaker": "spamton", "text": "" },
-      { "speaker": "system", "text": "" }
+      { "speaker": "system", "text": "Где-то в темноте раздаётся звонок." },
+      { "speaker": "spamton", "text": "...\nОй. Это, кажется, МНЕ." },
+      { "speaker": "spamton", "text": "Прошу прощения, [БОЛЬШИЕ ДЕЛА] подождут одну секунду." },
+      { "speaker": "system", "text": "Спамтон подносит к уху несуществующую трубку." }
     ],
     "neo_declaration": [
-      { "speaker": "spamton", "text": "" },
-      { "speaker": "spamton", "text": "" },
-      { "speaker": "spamton", "text": "" }
+      { "speaker": "spamton", "text": "heHEHE... ты правда пришёл, [БОЛЬШАЯ ШИШКА]." },
+      { "speaker": "spamton", "text": "Смотри. Смотри на это. [СИЛА NEO]." },
+      { "speaker": "spamton", "text": "Разве ты не хочешь стать... БОЛЬШОЙ ШИШКОЙ?!" }
     ]
   },
 
   "battle": {
-    "check_neo": "",
+    "check_neo": "* SPAMTON NEO — ATK 13 DEF 0\n* Его провода — единственное, что держит его на ногах.\n* Он никогда ещё не чувствовал себя настолько СВОБОДНЫМ.",
     "act_snap": [
-      { "speaker": "system", "text": "" },
-      { "speaker": "spamton", "text": "" }
+      { "speaker": "system", "text": "Вы тянетесь к одному из проводов Спамтона..." },
+      { "speaker": "spamton", "text": "Э-эй! Поосторожнее с товаром!" }
     ],
     "act_s_action": [
-      { "speaker": "susie", "text": "" },
-      { "speaker": "spamton", "text": "" }
+      { "speaker": "susie", "text": "Сюзи скалится и дёргает за провод посильнее." },
+      { "speaker": "spamton", "text": "Груб-о-о! Мне это... даже нравится." }
     ],
     "act_r_action": [
-      { "speaker": "ralsei", "text": "" },
-      { "speaker": "spamton", "text": "" }
+      { "speaker": "ralsei", "text": "Ральсей мягко говорит Спамтону, что тот и так уже достаточно большой." },
+      { "speaker": "spamton", "text": "...\nЗаткнись. ЗАТКНИСЬ. ...спасибо." }
     ],
     "snap_all": [
-      { "speaker": "system", "text": "" },
-      { "speaker": "spamton", "text": "" }
+      { "speaker": "system", "text": "Все трое разом бросаются резать провода!" },
+      { "speaker": "spamton", "text": "Э-это уже НЕЧЕСТНО, ребята!" }
     ],
     "taunts": [
-      { "speaker": "spamton", "text": "" },
-      { "speaker": "spamton", "text": "" },
-      { "speaker": "spamton", "text": "" },
-      { "speaker": "spamton", "text": "" }
+      { "speaker": "spamton", "text": "Налетай, налетай! Скидки на страдания — только сегодня!" },
+      { "speaker": "spamton", "text": "[ОШИБКА] ... [ОШИБКА] ... ты вообще ЧИТАЕШЬ мелкий шрифт?!" },
+      { "speaker": "spamton", "text": "heHEHE! БОЛЬШАЯ ШИШКА в деле!" },
+      { "speaker": "spamton", "text": "Каждая покупка — это ИНВЕСТИЦИЯ в твоё же поражение!" }
     ],
     "hurt_lines": [
-      { "speaker": "spamton", "text": "" },
-      { "speaker": "spamton", "text": "" },
-      { "speaker": "spamton", "text": "" }
+      { "speaker": "spamton", "text": "х-хех... и это ВСЁ, на что ты способен?" },
+      { "speaker": "spamton", "text": "Ничего личного, просто БИЗНЕС!" },
+      { "speaker": "spamton", "text": "[ПЕРЕЗАГРУЗКА ХАРИЗМЫ.exe] ..." }
     ],
     "low_hp_lines": [
-      { "speaker": "spamton", "text": "" },
-      { "speaker": "spamton", "text": "" }
+      { "speaker": "spamton", "text": "Н-нет... это не то, как должна была пройти сделка..." },
+      { "speaker": "spamton", "text": "Я должен был стать БОЛЬШОЙ ШИШКОЙ. Я. А не ты." }
     ],
     "free_turn_call": [
-      { "speaker": "spamton", "text": "" },
-      { "speaker": "spamton", "text": "" }
+      { "speaker": "spamton", "text": "Опять этот звонок! Да что вам всем НАДО?!" },
+      { "speaker": "system", "text": "Спамтон отвлекается на собственный телефон и на секунду забывает о вас." }
     ]
   },
 
   "wires": {
     "almost_done": [
-      { "speaker": "spamton", "text": "" },
-      { "speaker": "spamton", "text": "" }
+      { "speaker": "spamton", "text": "...осталась одна ниточка, да?" },
+      { "speaker": "spamton", "text": "heh... валяйте. Довершите начатое." }
     ],
     "all_cut_ending": [
-      { "speaker": "spamton", "text": "" },
-      { "speaker": "spamton", "text": "" },
-      { "speaker": "spamton", "text": "" },
-      { "speaker": "system", "text": "" }
+      { "speaker": "spamton", "text": "...\nВы правда пытались меня... освободить?" },
+      { "speaker": "spamton", "text": "Никто ещё не пытался сделать мне такой подарок." },
+      { "speaker": "spamton", "text": "Ладно, [БОЛЬШАЯ ШИШКА]. Режьте последнюю." },
+      { "speaker": "system", "text": "Провода падают. Спамтон опускается на землю — впервые без единой нити." }
     ]
   },
 
   "endings": {
     "victory_fight": [
-      { "speaker": "spamton", "text": "" },
-      { "speaker": "system", "text": "" }
+      { "speaker": "spamton", "text": "heHEHEHE... неплохая СДЕЛКА вышла, а, кид?" },
+      { "speaker": "system", "text": "Свет в глазах Спамтона гаснет." }
     ],
     "victory_wires": [
-      { "speaker": "spamton", "text": "" },
-      { "speaker": "system", "text": "" }
+      { "speaker": "spamton", "text": "Спасибо, что заглянули в мой... магазинчик." },
+      { "speaker": "system", "text": "Спамтон улыбается — кажется, впервые совершенно искренне." }
     ],
     "game_over": [
-      { "speaker": "spamton", "text": "" },
-      { "speaker": "system", "text": "" }
+      { "speaker": "spamton", "text": "heHEHEHE!!" },
+      { "speaker": "system", "text": "Похоже, СДЕЛКА сорвалась..." }
     ]
   }
 }

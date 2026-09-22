@@ -1,42 +1,77 @@
-# SPAMTON NEO — Boss Battle Clone
+# SPAMTON NEO — Battle Clone
 
-A fan-made, fully playable clone of the SPAMTON NEO boss battle from
-*Deltarune Chapter 2*, built as a self-contained static web page (plain
-HTML/CSS/JS, no build step, no external dependencies).
+Клон боя со Spamton NEO (*Deltarune*, Chapter 2). Дизайн — см.
+`SPEC.md`, список ассетов — `ASSETS.md`. Разработка идёт поэтапно,
+по стадиям (см. «Прогресс по этапам» в конце `SPEC.md`); каждая
+стадия — отдельный коммит.
 
-## Play
+**Стек:** Vite + TypeScript + HTML5 Canvas, без игровых движков.
 
-Open `index.html` in a browser (or serve the folder with any static file
-server, e.g. `python3 -m http.server`).
+## Запуск
 
-- **Arrow keys / WASD** — move the soul
-- **Z / Enter / Space** — confirm, attack, advance dialogue
-- **X / Escape** — cancel / back out of a submenu
-- **F** — toggle the FPS counter
-- The intro dialogue can be skipped at any time with the **SKIP INTRO**
-  button in the top-right corner, or `Escape`.
-- Mouse/touch works for every menu and the FIGHT timing bar; touch also
-  supports drag-to-move during the bullet-hell phases.
+```
+npm install
+npm run dev       # dev-сервер с горячей перезагрузкой
+npm run build     # прод-сборка в dist/ (статика, для GitHub Pages)
+npm run preview   # локальный просмотр прод-сборки
+npm run typecheck # только проверка типов, без сборки
+```
 
-## How it works
+## Управление
 
-- `js/utils.js` — small math/collision helpers
-- `js/audio.js` — a tiny WebAudio synth (no audio files; all sound and
-  the battle theme are generated procedurally at runtime)
-- `js/dialogue.js` — the typewriter dialogue box + skip logic
-- `js/heart.js` — the player-controlled SOUL
-- `js/patterns.js` — bullet types and the four attack patterns
-- `js/boss.js` — boss HP/phase/spare-state logic
-- `js/ui.js` — all canvas drawing helpers, including the boss's
-  procedurally-drawn puppet design
-- `js/main.js` — the state machine and a fixed-timestep (60Hz) game loop
+- **Стрелки / WASD** — навигация в меню / движение души
+- **Z / Enter** — подтвердить; в диалоге — долистать текущую строку
+  до конца (если ещё печатается) или перейти дальше
+- **X** — отмена/назад; в диалоге — мгновенно вывести текущую строку
+  целиком (не переходит дальше)
+- **C** — меню; удержание 1 сек в интро — пропустить вступление
+  (с индикатором заполнения)
+- **Shift** — зарезервирована, намеренно ничего не делает
+- **F1 / F2** — (только `npm run dev`) принудительно открыть экран
+  Victory / GameOver, для проверки экранов без реального боя;
+  вырезаются из прод-сборки
 
-The boss art is an original geometric design (not an extracted game
-sprite), and all dialogue is original fan-written flavor text in the
-character's stylistic voice rather than a copy of the game's script —
-this keeps the project a transformative fan tribute rather than a
-reproduction of copyrighted assets.
+## Текущее состояние
 
-Game loop: `requestAnimationFrame` drives rendering, while game logic
-(movement, bullets, collisions) runs on a fixed 60Hz accumulator step so
-behavior is consistent across displays regardless of refresh rate.
+**Этап 3 из плана** (Boot → StartMenu → **Intro** → PartyMenu →
+ResolveNonFight → ResolveFight → EnemyAttack → Victory/GameOver):
+
+- Canvas 640×480, целочисленное масштабирование, `pixelated`.
+- Игровой цикл: логика на фиксированном шаге 60 Гц, рендер — через
+  `requestAnimationFrame`.
+- Загрузчик ассетов с заглушками (`src/core/assets.ts`) — спрайт без
+  файла превращается в подписанный цветной прямоугольник, звук — в
+  тихий no-op, ничего не падает.
+- **Intro — реализовано по-настоящему:** посимвольный вывод текста
+  из `public/data/dialogue.json`, звук-блип на каждый символ (пока
+  тихий — файла `sfx_text_blip.wav` ещё нет), портреты через
+  `PortraitCache` (тоже заглушки), Z/X как описано выше, удержание C
+  со шкалой прогресса пропускает интро.
+- `StartMenu` реализован по-настоящему (два пункта, второй —
+  «Начать сразу с боя» — совсем без интро).
+- `PartyMenu → ResolveNonFight → ResolveFight → EnemyAttack` —
+  всё ещё заглушки (Этап 4+), но переходы между ними рабочие, и
+  `EnemyAttack` уже честно гоняет интерфейс атаки
+  (`init/update/draw/isFinished`) через `StubAttack`, выбирая атаку
+  по номеру хода (`src/attacks/sequence.ts`).
+
+Реального боевого меню, жёлтой души и настоящих атак пока нет — это
+Этапы 4–6, см. `SPEC.md`.
+
+## Структура
+
+```
+src/
+  core/        цикл, canvas, ввод, загрузчик ассетов, диалог-раннер,
+               загрузка dialogue.json, машина состояний
+  game/        Game.ts (сборка всего), контекст, состояния,
+               портреты (PortraitCache), отрисовка диалогового окна
+  attacks/     интерфейс Attack + порядок атак по ходам (sequence.ts)
+  config/      все числовые настройки (party.ts, magic.ts, fight.ts,
+               attacks.ts, dialogue.ts) — тюнинг без правки логики
+public/
+  assets/sprites/  спрайты (кладёте сами — см. ASSETS.md)
+  assets/audio/    звук/музыка (кладёте сами — см. ASSETS.md)
+  data/dialogue.json  реплики (уже заполнены оригинальным текстом
+                       «в стиле персонажа» — замените в любой момент)
+```
