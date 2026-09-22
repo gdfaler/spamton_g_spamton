@@ -62,3 +62,28 @@ export const SNAP_ALL_CONFIG = {
   /** Susie/Ralsei skip their action this round when SnapAll is used. */
   consumesWholePartyTurn: true
 };
+
+/** DEFEND — Stage 4 requirement: reduces incoming damage this round and
+ * grants TP immediately. */
+export const DEFEND_CONFIG = {
+  tpGain: 16,
+  /** 0..100, percent damage reduction applied if this character is the
+   * random target of an enemy hit during the same round they defended. */
+  damageReductionPercent: 50
+};
+
+/** Pacify (Ralsei MAGIC) — [ПРОВЕРИТЬ] exact effect; implemented as a
+ * party-wide damage reduction for the current round, similar to DEFEND
+ * but from a spell instead of a per-character action. */
+export const PACIFY_CONFIG = {
+  damageReductionPercent: 30
+};
+
+/**
+ * DOWN state — SPEC.md Stage 4: HP can go negative; a downed character
+ * skips their turns and regains HP at the start of each round, standing
+ * back up once HP > 0. GameOver only when all three are DOWN at once.
+ */
+export const DOWN_CONFIG = {
+  hpRegenPerRound: 20
+};

@@ -51,6 +51,10 @@
     "free_turn_call": [
       { "speaker": "spamton", "text": "Опять этот звонок! Да что вам всем НАДО?!" },
       { "speaker": "system", "text": "Спамтон отвлекается на собственный телефон и на секунду забывает о вас." }
+    ],
+    "spare_fail": [
+      { "speaker": "system", "text": "Вы пытаетесь ПОЩАДИТЬ SPAMTON NEO..." },
+      { "speaker": "spamton", "text": "heHEHE! Милый жест. Не сработает, но МИЛЫЙ." }
     ]
   },
 

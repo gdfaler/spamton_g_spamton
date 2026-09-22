@@ -37,7 +37,9 @@ export class Game {
       goto: (state: GameState<GameContext>) => machine.transition(state),
       currentStateName: () => machine.currentName,
       dialogueData: null,
-      sfxBlip: null
+      sfxBlip: null,
+      soul: null,
+      bullets: []
     };
 
     machine = new StateMachine<GameContext>(this.ctx);
@@ -52,6 +54,12 @@ export class Game {
   start(): void {
     this.machine.transition(new BootState());
     this.loop.start();
+  }
+
+  /** Dev/test-only escape hatch (see main.ts) — never referenced by game
+   * logic itself. */
+  get debugContext(): GameContext {
+    return this.ctx;
   }
 
   private update(dt: number): void {

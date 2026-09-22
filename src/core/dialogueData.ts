@@ -25,6 +25,7 @@ export interface DialogueData {
     hurt_lines: DialoguePage[];
     low_hp_lines: DialoguePage[];
     free_turn_call: DialoguePage[];
+    spare_fail: DialoguePage[];
   };
   wires: {
     almost_done: DialoguePage[];
@@ -51,7 +52,8 @@ const EMERGENCY_FALLBACK: DialogueData = {
     taunts: [{ speaker: 'spamton', text: '...' }],
     hurt_lines: [{ speaker: 'spamton', text: '...' }],
     low_hp_lines: [{ speaker: 'spamton', text: '...' }],
-    free_turn_call: [{ speaker: 'spamton', text: '...' }]
+    free_turn_call: [{ speaker: 'spamton', text: '...' }],
+    spare_fail: [{ speaker: 'system', text: '...' }]
   },
   wires: {
     almost_done: [{ speaker: 'spamton', text: '...' }],

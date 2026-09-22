@@ -25,6 +25,16 @@ export const ATTACK_CONFIG: Record<AttackId, AttackConfigBase> = {
   PowerOfNeo: { durationSeconds: 10, boxWidth: 560, boxHeight: 300 }
 };
 
+export const ATTACK_BOX_TOP_Y = 260;
+
+/** Shared box-rect formula so StubAttack's drawing and EnemyAttackState's
+ * soul-movement bounds never drift apart. Real attacks (Stage 6) can use
+ * the same helper or read boxWidth/boxHeight directly for a custom shape. */
+export function computeAttackBoxRect(id: AttackId): { x: number; y: number; w: number; h: number } {
+  const cfg = ATTACK_CONFIG[id];
+  return { x: (640 - cfg.boxWidth) / 2, y: ATTACK_BOX_TOP_Y, w: cfg.boxWidth, h: cfg.boxHeight };
+}
+
 export type AttackSequenceLoopMode = 'loopAll' | 'repeatLast';
 
 /** [РЕШЕНО, настраиваемо] What happens once turnNumber exceeds
