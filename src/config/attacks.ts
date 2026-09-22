@@ -24,3 +24,11 @@ export const ATTACK_CONFIG: Record<AttackId, AttackConfigBase> = {
   FreeTurnCall: { durationSeconds: 3, boxWidth: 300, boxHeight: 160 },
   PowerOfNeo: { durationSeconds: 10, boxWidth: 560, boxHeight: 300 }
 };
+
+export type AttackSequenceLoopMode = 'loopAll' | 'repeatLast';
+
+/** [РЕШЕНО, настраиваемо] What happens once turnNumber exceeds
+ * ATTACK_SEQUENCE's length — see SPEC.md §5 and src/attacks/sequence.ts. */
+export const ATTACK_SEQUENCE_CONFIG = {
+  loopMode: 'loopAll' as AttackSequenceLoopMode
+};

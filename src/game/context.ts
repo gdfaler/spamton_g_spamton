@@ -1,7 +1,8 @@
 import type { InputManager } from '../core/input';
-import type { AssetManager } from '../core/assets';
+import type { AssetManager, AudioHandle } from '../core/assets';
 import type { GameState } from '../core/stateMachine';
 import type { Attack } from '../attacks/types';
+import type { DialogueData } from '../core/dialogueData';
 import { PARTY_CONFIG, type PartyMemberId, SPAMTON_NEO_CONFIG } from '../config/party';
 
 export interface BattleData {
@@ -34,4 +35,8 @@ export interface GameContext {
   /** Requests a state transition. Set by Game.ts at startup. */
   goto: (state: GameState<GameContext>) => void;
   currentStateName: () => string;
+  /** Loaded once in BootState; null only for the brief instant before it
+   * resolves (Boot doesn't advance until it's set). */
+  dialogueData: DialogueData | null;
+  sfxBlip: AudioHandle | null;
 }

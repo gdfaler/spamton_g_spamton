@@ -4,7 +4,6 @@ import type { Attack } from '../../attacks/types';
 import { attackForTurn } from '../../attacks/sequence';
 import { StubAttack } from '../../attacks/StubAttack';
 import { PartyMenuState } from './PartyMenu';
-import { GameOverState } from './GameOver';
 
 /** Wires the real Attack contract (init/update/draw/isFinished) end-to-end
  * using StubAttack, picking which attack by turn number via
@@ -27,11 +26,6 @@ export class EnemyAttackState implements GameState<GameContext> {
   }
 
   update(ctx: GameContext, dt: number): void {
-    // Debug-only shortcut to review GameOver without real HP loss logic.
-    if (ctx.input.justPressed('cancel')) {
-      ctx.goto(new GameOverState());
-      return;
-    }
     this.attack?.update(dt);
     if (this.attack?.isFinished()) {
       ctx.battle.turnNumber += 1;
@@ -47,11 +41,7 @@ export class EnemyAttackState implements GameState<GameContext> {
     g.fillStyle = '#5bffb0';
     g.font = '12px monospace';
     g.textAlign = 'center';
-    g.fillText(
-      `FPS: ${ctx.fps.toFixed(0)}  |  state: ${ctx.currentStateName()}  |  X: [debug] GameOver`,
-      320,
-      460
-    );
+    g.fillText(`FPS: ${ctx.fps.toFixed(0)}  |  state: ${ctx.currentStateName()}`, 320, 460);
     g.textAlign = 'left';
   }
 }

@@ -2,7 +2,6 @@ import type { GameState } from '../../core/stateMachine';
 import type { GameContext } from '../context';
 import { drawStubScreen } from '../debugUi';
 import { ResolveNonFightState } from './ResolveNonFight';
-import { VictoryState } from './Victory';
 
 /** Stub — real per-character FIGHT/ACT/MAGIC/ITEM/DEFEND/SPARE menu is
  * Stage 4. This proves PartyMenu -> ResolveNonFight -> ResolveFight ->
@@ -13,11 +12,6 @@ export class PartyMenuState implements GameState<GameContext> {
   update(ctx: GameContext): void {
     if (ctx.input.justPressed('confirm')) {
       ctx.goto(new ResolveNonFightState());
-    }
-    // Debug-only shortcut so Victory can be reviewed without real battle
-    // logic (Stage 4+). Remove once FIGHT/Mercy% actually drive this.
-    if (ctx.input.justPressed('cancel')) {
-      ctx.goto(new VictoryState('fight'));
     }
   }
 
@@ -30,8 +24,7 @@ export class PartyMenuState implements GameState<GameContext> {
       '',
       'Real menu (FIGHT/ACT/MAGIC/ITEM/DEFEND/SPARE): Stage 4.',
       '',
-      'Z/Enter: continue -> ResolveNonFight -> ResolveFight -> EnemyAttack',
-      'X: [debug] jump to Victory(fight) screen'
+      'Z/Enter: continue -> ResolveNonFight -> ResolveFight -> EnemyAttack'
     ]);
   }
 }

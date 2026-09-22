@@ -3,14 +3,18 @@ import { InputManager } from '../core/input';
 import { AssetManager } from '../core/assets';
 import { GameLoop } from '../core/loop';
 import { StateMachine, type GameState } from '../core/stateMachine';
+import { DevHotkeys } from '../core/devHotkeys';
 import { type GameContext, createInitialBattleData } from './context';
 import { BootState } from './states/Boot';
+import { VictoryState } from './states/Victory';
+import { GameOverState } from './states/GameOver';
 
 export class Game {
   private readonly canvas: GameCanvas;
   private readonly loop: GameLoop;
   private readonly machine: StateMachine<GameContext>;
   private readonly ctx: GameContext;
+  private readonly devHotkeys = new DevHotkeys();
   private lastRenderTime = performance.now();
   private fpsSmoothed = 60;
 
@@ -31,7 +35,9 @@ export class Game {
       battle: createInitialBattleData(),
       fps: 60,
       goto: (state: GameState<GameContext>) => machine.transition(state),
-      currentStateName: () => machine.currentName
+      currentStateName: () => machine.currentName,
+      dialogueData: null,
+      sfxBlip: null
     };
 
     machine = new StateMachine<GameContext>(this.ctx);
@@ -50,6 +56,19 @@ export class Game {
 
   private update(dt: number): void {
     this.ctx.input.update(dt);
+
+    // Global dev-only shortcuts (F1/F2) — checked before the current
+    // state's own update so they work from anywhere. Dead-code-eliminated
+    // in production builds (see DevHotkeys).
+    if (this.devHotkeys.consumeVictoryRequest()) {
+      this.machine.transition(new VictoryState('fight'));
+      return;
+    }
+    if (this.devHotkeys.consumeGameOverRequest()) {
+      this.machine.transition(new GameOverState());
+      return;
+    }
+
     this.machine.update(dt);
   }
 

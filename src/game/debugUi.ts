@@ -25,6 +25,7 @@ export function drawStubScreen(
 
   g.fillStyle = '#5bffb0';
   g.font = '12px monospace';
-  g.fillText(`FPS: ${ctx.fps.toFixed(0)}  |  state: ${ctx.currentStateName()}`, 320, 460);
+  const devHint = import.meta.env.DEV ? '  |  [DEV] F1: Victory  F2: GameOver' : '';
+  g.fillText(`FPS: ${ctx.fps.toFixed(0)}  |  state: ${ctx.currentStateName()}${devHint}`, 320, 460);
   g.textAlign = 'left';
 }

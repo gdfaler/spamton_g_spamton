@@ -44,3 +44,21 @@ export const MERCY_CONFIG = {
   gainPerXAction: 2,
   gainPerSnapAll: 7
 };
+
+export type SnapAllUnlockMode = 'always' | 'afterManualSnaps' | 'mercyThreshold';
+
+/**
+ * [РЕШЕНО, настраиваемо] SnapAll unlock condition + cost — see SPEC.md §3.
+ * Default: always available, but costs the WHOLE party's turn (Susie and
+ * Ralsei do not act that round when Kris picks SnapAll). Flip
+ * `unlockMode`/`unlockValue` to gate it behind manual snaps or a Mercy%
+ * threshold instead, without touching any battle logic.
+ */
+export const SNAP_ALL_CONFIG = {
+  unlockMode: 'always' as SnapAllUnlockMode,
+  /** Meaning depends on unlockMode: manual-Snap count for
+   * 'afterManualSnaps', Mercy% for 'mercyThreshold'. Unused for 'always'. */
+  unlockValue: 0,
+  /** Susie/Ralsei skip their action this round when SnapAll is used. */
+  consumesWholePartyTurn: true
+};
